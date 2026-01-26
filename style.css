@@ -207,3 +207,12 @@ footer a {
     padding: 0 8vw;
   }
 }
+/* ===== OUTER FRAME ===== */
+body {
+  background: #cfcfcf; /* grayish-white frame */
+  padding: 24px;
+}
+
+body > * {
+  background: #0b0e14; /* your website background */
+}
