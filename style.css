@@ -39,7 +39,7 @@ body {
       rgba(11,14,20,0.7),
       rgba(11,14,20,0.9)
     ),
-    url("assets/hero.jpg");
+    url("assets/bg-hero.jpeg");
 
   background-size: cover;
   background-position: center;
