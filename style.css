@@ -145,17 +145,6 @@ section h2 {
   z-index: -1;
 }
 
-.project.maglev::before {
-  background-image: url("assets/maglev-bg.jpg");
-}
-
-.project.chimera::before {
-  background-image: url("assets/chimera-bg.jpg");
-}
-
-.project.workshop::before {
-  background-image: url("assets/workshop-bg.jpg");
-}
 
 /* ===== TAG ===== */
 .tag {
