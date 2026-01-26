@@ -4,10 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Krishna Kulkarni | Aerospace & CFD Engineer</title>
+
+  <!-- FONT -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- HERO -->
 <header class="hero">
   <div class="hero-content">
     <h1>Krishna Kulkarni</h1>
@@ -16,125 +22,108 @@
   </div>
 </header>
 
-
+<!-- ABOUT -->
 <section id="about">
   <h2>About Me</h2>
   <p>
-    I am a Mechanical Engineering student specializing in Aerodynamics and Computational Fluid Dynamics,
+    Mechanical Engineering student specializing in Aerodynamics and Computational Fluid Dynamics,
     with hands-on experience in UAV design, aerodynamic optimization, and aerospace simulations.
-    Currently working in a Micro Aerial Vehicles (MAV) lab at IISc, Bengaluru.
+    Currently working in the Micro Aerial Vehicles (MAV) lab at IISc, Bengaluru.
   </p>
 </section>
 
+<!-- SKILLS -->
 <section id="skills">
   <h2>Skills</h2>
   <ul>
-    <li><strong>CFD & Simulation:</strong> ANSYS Fluent, ANSYS Mechanical, OpenFOAM</li>
-    <li><strong>Design:</strong> SolidWorks, CATIA V5, Fusion 360, Solid Edge</li>
+    <li><strong>CFD:</strong> ANSYS Fluent, OpenFOAM, Turbulence Modeling</li>
+    <li><strong>Design:</strong> SolidWorks, CATIA V5, Fusion 360</li>
     <li><strong>Programming:</strong> Python, HTML</li>
-    <li><strong>Aerospace:</strong> Aerodynamics, Turbulence Modeling, UAV Design</li>
+    <li><strong>Aerospace:</strong> UAV Design, Aerodynamics, Optimization</li>
   </ul>
 </section>
 
+<!-- PROJECTS -->
 <section id="projects">
   <h2>Projects</h2>
-<div class="project maglev">
-  <h3>Aerodynamic Drag Reduction in High-Speed Maglev Trains</h3>
-  <p>
-    Conducted detailed 2D and 3D CFD simulations of high-speed maglev and
-    Shinkansen-type trains at 300 km/h to reduce aerodynamic drag.
-  </p>
-  <ul>
-    <li>Kriging surrogate modeling for nose shape optimization</li>
-    <li>k–ω SST turbulence model in ANSYS Fluent</li>
-    <li>Achieved ~4.16% drag reduction</li>
-    <li>Validated pressure and velocity contours</li>
-  </ul>
-  <span class="tag">CFD • Optimization • Rail Aerodynamics</span>
-</div>
-
-<div class="project chimera">
-  <h3>CHIMERA – Transformable UAV Platform</h3>
-  <p>
-    Part of the CHIMERA UAV development with senior researchers — a
-    reconfigurable aerial platform capable of multi-mode operation.
-  </p>
-  <ul>
-    <li>Conceptual design and aerodynamic considerations</li>
-    <li>Transition and stability analysis</li>
-    <li>Collaboration with senior aerospace researchers</li>
-  </ul>
-  <span class="tag">UAV • VTOL • Research Collaboration</span>
-</div>
-
-<div class="project workshop">
-  <h3>Aerospace Workshop & Technical Presentation</h3>
-  <p>
-    Organized and delivered a technical workshop and presentation on
-    aerodynamics and UAV systems in front of high-level delegates and faculty.
-  </p>
-  <ul>
-    <li>Technical content preparation</li>
-    <li>Live presentation & Q/A handling</li>
-    <li>Coordination with academic and industry delegates</li>
-  </ul>
-  <span class="tag">Leadership • Technical Communication</span>
-</div>
 
   <div class="project">
-    <h3>RC Fixed-Wing Aircraft Design & Fabrication</h3>
+    <h3>RC Fixed-Wing Aircraft</h3>
     <p>
       Designed and built a radio-controlled fixed-wing aircraft focusing on aerodynamic efficiency,
-      stability, and lightweight structural design.
+      structural weight optimization, and flight stability.
     </p>
     <ul>
-      <li>Airfoil selection based on Reynolds number analysis</li>
-      <li>Wing loading and CG optimization</li>
-      <li>Structural design using balsa/composite materials</li>
-      <li>Flight testing and trim optimization</li>
+      <li>Airfoil selection based on Reynolds number</li>
+      <li>Wing loading & CG optimization</li>
+      <li>Fabrication and flight testing</li>
     </ul>
-    <p class="note">Images & flight videos will be added.</p>
+    <span class="tag">UAV • Fixed Wing</span>
   </div>
 
   <div class="project">
-    <h3>Tailsitter VTOL UAV Design</h3>
+    <h3>Tailsitter VTOL UAV</h3>
     <p>
-      Designed a tailsitter VTOL UAV capable of vertical takeoff and fixed-wing forward flight.
-      The project focuses on aerodynamic stability during transition and efficient cruise performance.
+      Designed a tailsitter VTOL UAV capable of vertical takeoff and efficient forward flight,
+      with emphasis on transition stability and aerodynamic performance.
     </p>
     <ul>
-      <li>Symmetric airfoil selection for hover-to-cruise transition</li>
-      <li>CFD analysis of fuselage and wing-body interaction</li>
+      <li>Symmetric airfoil selection</li>
       <li>Propeller-wing interaction considerations</li>
-      <li>Preliminary control strategy for pitch and yaw stability</li>
+      <li>CFD-based fuselage optimization</li>
     </ul>
-    <p class="note">Wind tunnel / flight test visuals to be added.</p>
+    <span class="tag">VTOL • CFD</span>
   </div>
+
+  <div class="project maglev">
+    <h3>Aerodynamic Drag Reduction in High-Speed Maglev Trains</h3>
+    <p>
+      Conducted 2D and 3D CFD simulations of high-speed maglev trains at 300 km/h and applied
+      Kriging surrogate models for aerodynamic nose optimization.
+    </p>
+    <ul>
+      <li>k–ω SST turbulence model</li>
+      <li>Pressure & velocity contour analysis</li>
+      <li>Achieved ~4.16% drag reduction</li>
+    </ul>
+    <span class="tag">CFD • Optimization</span>
+  </div>
+
+  <div class="project chimera">
+    <h3>CHIMERA – Transformable UAV Platform</h3>
+    <p>
+      Contributed to the development of CHIMERA, a transformable UAV platform designed with senior
+      researchers to support multi-mode aerial operations.
+    </p>
+    <ul>
+      <li>Conceptual aerodynamic design</li>
+      <li>Stability and transition considerations</li>
+      <li>Research-oriented UAV architecture</li>
+    </ul>
+    <span class="tag">Research • UAV</span>
+  </div>
+
+  <div class="project workshop">
+    <h3>Aerospace Workshop & Delegate Presentation</h3>
+    <p>
+      Organized and delivered a technical workshop and presentation on aerodynamics and UAV systems
+      in front of senior academic and industry delegates.
+    </p>
+    <ul>
+      <li>Workshop planning & coordination</li>
+      <li>Technical presentation delivery</li>
+      <li>High-level Q&A handling</li>
+    </ul>
+    <span class="tag">Leadership • Communication</span>
+  </div>
+
 </section>
 
-<section id="experience">
-  <h2>Experience</h2>
-  <ul>
-    <li><strong>Research Intern – IISc Bengaluru</strong>  
-      Micro Aerial Vehicles (MAV) Lab – Aerospace Research</li>
-
-    <li><strong>Intern – Bosch Automotive Electronics</strong>  
-      PCB manufacturing, GD&T inspection (Micro-VU)</li>
-
-    <li><strong>Intern – Kennametal</strong>  
-      SAP ERP & CNC-based carbide tool manufacturing</li>
-
-    <li><strong>Project Intern – Dwello Aerospace</strong>  
-      CFD analysis of commercial and fighter aircraft</li>
-  </ul>
-</section>
-
+<!-- FOOTER -->
 <footer>
   <p>© 2026 Krishna Kulkarni</p>
   <p>
-    <a href="https://www.linkedin.com/in/krishnakulkarni075a56320" target="_blank">
-      LinkedIn
-    </a>
+    <a href="https://www.linkedin.com/in/krishnakulkarni075a56320" target="_blank">LinkedIn</a>
   </p>
 </footer>
 
