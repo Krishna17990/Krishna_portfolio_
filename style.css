@@ -1,62 +1,26 @@
-body {
-  font-family: Arial, Helvetica, sans-serif;
+/* ===== RESET ===== */
+* {
   margin: 0;
-  line-height: 1.6;
-  background: #f4f6f8;
-  color: #333;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-header {
-  background: #0a1f44;
-  color: white;
-  text-align: center;
-  padding: 60px 20px;
+html {
+  scroll-behavior: smooth;
 }
 
-header h1 {
-  margin-bottom: 10px;
+/* ===== THEME ===== */
+:root {
+  --bg: #0b0e14;
+  --bg-soft: #121621;
+  --text: #e6e8ef;
+  --muted: #9aa3b2;
+  --accent: #5eead4;
+  --border: rgba(255,255,255,0.08);
 }
 
-.btn {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: #ff9800;
-  color: #000;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-section {
-  max-width: 900px;
-  margin: auto;
-  padding: 40px 20px;
-}
-
-h2 {
-  color: #0a1f44;
-}
-
-.project {
-  background: white;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-left: 5px solid #0a1f44;
-}
-
-.note {
-  font-style: italic;
-  color: #666;
-}
-
-footer {
-  background: #0a1f44;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-footer a {
-  color: #ff9800;
-  text-decoration: none;
-}
+/* ===== BODY ===== */
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: radial-gradient(1200px 600px at 70% -10%, #1a2033, var(--bg));
+  c
