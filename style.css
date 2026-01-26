@@ -27,12 +27,25 @@ body {
   line-height: 1.7;
 }
 
-/* ================= HERO ================= */
+/* ================= HERO WITH BACKGROUND IMAGE ================= */
 .hero {
   min-height: 100vh;
   display: flex;
   align-items: center;
+
+  /* background image */
+  background-image:
+    linear-gradient(
+      rgba(11,14,20,0.7),
+      rgba(11,14,20,0.9)
+    ),
+    url("assets/hero.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
 
 .hero-content {
   max-width: 900px;
