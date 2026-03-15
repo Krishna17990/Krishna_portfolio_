@@ -1,182 +1,1187 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Krishna Kulkarni | Aerospace Engineer</title>
-
-<link rel="stylesheet" href="style.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Krishna Kulkarni — Aerospace Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #040608;
+    --bg2: #080c10;
+    --panel: #0c1018;
+    --accent: #00d4ff;
+    --accent2: #ff4d1c;
+    --accent3: #7fff6e;
+    --text: #e8edf2;
+    --muted: #4a5568;
+    --border: rgba(0,212,255,0.15);
+    --grid: rgba(0,212,255,0.04);
+  }
+ 
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+ 
+  html{scroll-behavior:smooth;}
+ 
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Syne',sans-serif;
+    overflow-x:hidden;
+    cursor:none;
+  }
+ 
+  /* CUSTOM CURSOR */
+  #cursor{
+    position:fixed;width:12px;height:12px;
+    background:var(--accent);
+    border-radius:50%;pointer-events:none;z-index:9999;
+    transform:translate(-50%,-50%);
+    transition:transform 0.1s,background 0.2s;
+    mix-blend-mode:screen;
+  }
+  #cursor-ring{
+    position:fixed;width:36px;height:36px;
+    border:1px solid rgba(0,212,255,0.5);
+    border-radius:50%;pointer-events:none;z-index:9998;
+    transform:translate(-50%,-50%);
+    transition:transform 0.18s ease,width 0.3s,height 0.3s,border-color 0.3s;
+  }
+  body:hover #cursor-ring{opacity:1;}
+ 
+  /* SCROLLBAR */
+  ::-webkit-scrollbar{width:3px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--accent);}
+ 
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:24px 48px;
+    background:linear-gradient(to bottom,rgba(4,6,8,0.9),transparent);
+    backdrop-filter:blur(2px);
+    transition:background 0.4s;
+  }
+  nav.scrolled{background:rgba(4,6,8,0.95);border-bottom:1px solid var(--border);}
+  .nav-logo{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:22px;letter-spacing:3px;
+    color:var(--accent);
+  }
+  .nav-links{display:flex;gap:36px;list-style:none;}
+  .nav-links a{
+    color:var(--muted);text-decoration:none;
+    font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+    font-family:'Space Mono',monospace;
+    transition:color 0.3s;position:relative;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;bottom:-4px;left:0;
+    width:0;height:1px;background:var(--accent);
+    transition:width 0.3s;
+  }
+  .nav-links a:hover{color:var(--accent);}
+  .nav-links a:hover::after{width:100%;}
+ 
+  /* GRID BACKGROUND */
+  .grid-bg{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:60px 60px;
+    mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%);
+  }
+ 
+  /* HERO */
+  #hero{
+    position:relative;min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:0 48px;overflow:hidden;
+  }
+  #hero-canvas{
+    position:absolute;inset:0;z-index:1;
+  }
+  .hero-content{
+    position:relative;z-index:2;
+    max-width:900px;
+  }
+  .hero-tag{
+    font-family:'Space Mono',monospace;
+    font-size:11px;letter-spacing:3px;
+    color:var(--accent);text-transform:uppercase;
+    margin-bottom:24px;
+    display:flex;align-items:center;gap:12px;
+    opacity:0;animation:fadeUp 0.8s ease 0.3s forwards;
+  }
+  .hero-tag::before{content:'';width:32px;height:1px;background:var(--accent);}
+  .hero-name{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(72px,10vw,148px);
+    line-height:0.9;
+    letter-spacing:2px;
+    opacity:0;animation:fadeUp 0.8s ease 0.5s forwards;
+  }
+  .hero-name span{
+    display:block;
+    background:linear-gradient(135deg,#fff 0%,var(--accent) 60%,var(--accent2) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  }
+  .hero-sub{
+    font-size:clamp(14px,1.8vw,20px);
+    color:var(--muted);
+    margin-top:24px;max-width:560px;line-height:1.7;
+    font-weight:400;
+    opacity:0;animation:fadeUp 0.8s ease 0.7s forwards;
+  }
+  .hero-sub strong{color:var(--text);}
+  .hero-ctas{
+    display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;
+    opacity:0;animation:fadeUp 0.8s ease 0.9s forwards;
+  }
+  .btn-primary{
+    padding:14px 36px;
+    background:var(--accent);color:var(--bg);
+    font-family:'Space Mono',monospace;font-size:11px;
+    letter-spacing:2px;text-transform:uppercase;
+    border:none;cursor:none;
+    clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+    transition:background 0.3s,transform 0.2s;
+    text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+    font-weight:700;
+  }
+  .btn-primary:hover{background:#fff;transform:translateY(-2px);}
+  .btn-outline{
+    padding:14px 36px;
+    background:transparent;color:var(--accent);
+    font-family:'Space Mono',monospace;font-size:11px;
+    letter-spacing:2px;text-transform:uppercase;
+    border:1px solid var(--accent);cursor:none;
+    clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+    transition:background 0.3s,color 0.3s,transform 0.2s;
+    text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-outline:hover{background:var(--accent);color:var(--bg);transform:translateY(-2px);}
+  .hero-scroll{
+    position:absolute;bottom:40px;left:48px;z-index:2;
+    font-family:'Space Mono',monospace;font-size:10px;
+    letter-spacing:2px;color:var(--muted);
+    display:flex;align-items:center;gap:12px;
+    animation:fadeIn 1s ease 1.5s both;
+  }
+  .hero-scroll::before{
+    content:'';width:1px;height:40px;background:var(--muted);
+    animation:scrollLine 2s ease infinite;
+  }
+  .hero-stats{
+    position:absolute;right:48px;bottom:60px;z-index:2;
+    display:flex;flex-direction:column;gap:24px;
+    animation:fadeIn 1s ease 1.2s both;
+  }
+  .hero-stat{text-align:right;}
+  .hero-stat-num{
+    font-family:'Bebas Neue',sans-serif;font-size:42px;
+    color:var(--accent);line-height:1;
+  }
+  .hero-stat-label{
+    font-family:'Space Mono',monospace;font-size:9px;
+    letter-spacing:2px;color:var(--muted);text-transform:uppercase;
+  }
+ 
+  /* SECTIONS */
+  section{position:relative;z-index:1;padding:120px 48px;}
+ 
+  .section-label{
+    font-family:'Space Mono',monospace;font-size:10px;
+    letter-spacing:3px;text-transform:uppercase;
+    color:var(--accent);
+    display:flex;align-items:center;gap:16px;
+    margin-bottom:16px;
+  }
+  .section-label::after{content:'';flex:1;max-width:60px;height:1px;background:var(--accent);}
+  .section-title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(48px,6vw,88px);
+    line-height:1;letter-spacing:2px;
+    margin-bottom:60px;
+  }
+ 
+  /* ABOUT */
+  #about{background:var(--bg2);}
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;
+    max-width:1200px;
+  }
+  .about-text p{
+    font-size:17px;line-height:1.8;color:rgba(232,237,242,0.8);
+    margin-bottom:20px;
+  }
+  .about-text p strong{color:var(--accent);}
+  .about-right{display:flex;flex-direction:column;gap:20px;}
+  .info-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:16px 0;border-bottom:1px solid var(--border);
+    font-size:13px;
+  }
+  .info-row .label{
+    font-family:'Space Mono',monospace;font-size:10px;
+    letter-spacing:2px;color:var(--muted);text-transform:uppercase;
+  }
+  .info-row .val{color:var(--text);font-weight:600;}
+ 
+  /* EXPERIENCE TIMELINE */
+  #experience{background:var(--bg);}
+  .timeline{position:relative;max-width:900px;}
+  .timeline::before{
+    content:'';position:absolute;left:0;top:0;bottom:0;
+    width:1px;background:linear-gradient(to bottom,var(--accent),transparent);
+  }
+  .timeline-item{
+    padding:0 0 60px 40px;position:relative;
+    opacity:0;transform:translateX(-20px);
+    transition:opacity 0.6s,transform 0.6s;
+  }
+  .timeline-item.visible{opacity:1;transform:translateX(0);}
+  .timeline-dot{
+    position:absolute;left:-5px;top:6px;
+    width:10px;height:10px;background:var(--accent);
+    clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+  }
+  .timeline-date{
+    font-family:'Space Mono',monospace;font-size:10px;
+    letter-spacing:2px;color:var(--accent);
+    text-transform:uppercase;margin-bottom:8px;
+  }
+  .timeline-role{font-size:20px;font-weight:700;margin-bottom:4px;}
+  .timeline-company{
+    font-family:'Space Mono',monospace;font-size:12px;
+    color:var(--muted);letter-spacing:1px;margin-bottom:16px;
+  }
+  .timeline-desc{font-size:14px;line-height:1.8;color:rgba(232,237,242,0.7);}
+ 
+  /* PROJECTS */
+  #projects{background:var(--bg2);}
+  .projects-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    gap:24px;max-width:1300px;
+  }
+  .project-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:0;overflow:hidden;
+    position:relative;
+    clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));
+    transition:transform 0.4s,border-color 0.3s;
+    opacity:0;transform:translateY(30px);
+  }
+  .project-card.visible{opacity:1;transform:translateY(0);}
+  .project-card:hover{border-color:var(--accent);transform:translateY(-4px);}
+  .project-card.featured{
+    grid-column:span 2;
+    border-color:rgba(0,212,255,0.3);
+  }
+  .project-video-area{
+    width:100%;aspect-ratio:16/9;
+    background:var(--bg);position:relative;
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .project-video-area iframe{
+    width:100%;height:100%;border:none;
+  }
+  .video-placeholder{
+    width:100%;height:100%;
+    background:linear-gradient(135deg,#080c14,#0c1422);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:16px;
+    position:relative;overflow:hidden;
+  }
+  .video-placeholder::before{
+    content:'';position:absolute;inset:0;
+    background:repeating-linear-gradient(
+      0deg,transparent,transparent 2px,
+      rgba(0,212,255,0.02) 2px,rgba(0,212,255,0.02) 4px
+    );
+    animation:scanlines 8s linear infinite;
+  }
+  .play-btn{
+    width:64px;height:64px;
+    border:2px solid var(--accent);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    transition:background 0.3s;
+    cursor:none;
+    position:relative;z-index:1;
+  }
+  .play-btn svg{fill:var(--accent);margin-left:4px;}
+  .project-card:hover .play-btn{background:var(--accent);}
+  .project-card:hover .play-btn svg{fill:var(--bg);}
+  .video-label{
+    font-family:'Space Mono',monospace;font-size:10px;
+    letter-spacing:2px;color:var(--muted);text-transform:uppercase;
+    position:relative;z-index:1;
+  }
+  .project-body{padding:28px 28px 32px;}
+  .project-tag{
+    font-family:'Space Mono',monospace;font-size:9px;
+    letter-spacing:2px;text-transform:uppercase;
+    color:var(--accent2);margin-bottom:12px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .project-tag::before{content:'';width:16px;height:1px;background:var(--accent2);}
+  .project-title{font-size:20px;font-weight:700;margin-bottom:12px;line-height:1.3;}
+  .project-desc{
+    font-size:13px;line-height:1.8;
+    color:rgba(232,237,242,0.65);margin-bottom:20px;
+  }
+  .project-metrics{
+    display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;
+  }
+  .metric{
+    padding:5px 12px;
+    background:rgba(0,212,255,0.07);
+    border:1px solid rgba(0,212,255,0.2);
+    font-family:'Space Mono',monospace;font-size:10px;
+    letter-spacing:1px;color:var(--accent);
+    clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));
+  }
+  .project-link{
+    font-family:'Space Mono',monospace;font-size:10px;
+    letter-spacing:2px;text-transform:uppercase;
+    color:var(--accent);text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;
+    border-bottom:1px solid transparent;
+    transition:border-color 0.3s;
+  }
+  .project-link:hover{border-color:var(--accent);}
+ 
+  /* SKILLS */
+  #skills{background:var(--bg);}
+  .skills-container{max-width:1100px;}
+  .skills-categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;}
+  .skill-cat{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:28px;
+    clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);
+    opacity:0;transform:translateY(20px);
+    transition:opacity 0.5s,transform 0.5s;
+  }
+  .skill-cat.visible{opacity:1;transform:translateY(0);}
+  .skill-cat-name{
+    font-family:'Space Mono',monospace;font-size:10px;
+    letter-spacing:3px;text-transform:uppercase;
+    color:var(--accent);margin-bottom:20px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .skill-cat-name svg{opacity:0.7;}
+  .skill-item{margin-bottom:16px;}
+  .skill-label{
+    display:flex;justify-content:space-between;
+    font-size:13px;margin-bottom:6px;font-weight:500;
+  }
+  .skill-label span:last-child{
+    font-family:'Space Mono',monospace;font-size:10px;
+    color:var(--muted);
+  }
+  .skill-bar-bg{
+    height:2px;background:rgba(255,255,255,0.06);
+    position:relative;overflow:hidden;
+  }
+  .skill-bar-fill{
+    height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));
+    width:0;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);
+    position:relative;
+  }
+  .skill-bar-fill::after{
+    content:'';position:absolute;right:0;top:-2px;
+    width:6px;height:6px;background:var(--accent);
+    clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+  }
+ 
+  /* CONTACT */
+  #contact{
+    background:var(--bg2);
+    min-height:60vh;display:flex;flex-direction:column;justify-content:center;
+  }
+  .contact-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:80px;
+    align-items:start;max-width:1100px;
+  }
+  .contact-left .big-text{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(60px,7vw,110px);
+    line-height:1;letter-spacing:2px;
+    margin-bottom:32px;
+  }
+  .contact-left .big-text span{color:var(--accent);}
+  .contact-left p{
+    font-size:16px;line-height:1.8;
+    color:rgba(232,237,242,0.65);
+    max-width:400px;margin-bottom:40px;
+  }
+  .contact-links{display:flex;flex-direction:column;gap:16px;}
+  .contact-link{
+    display:flex;align-items:center;gap:16px;
+    text-decoration:none;color:var(--text);
+    padding:16px 20px;
+    background:var(--panel);border:1px solid var(--border);
+    transition:border-color 0.3s,transform 0.3s;
+    clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+  }
+  .contact-link:hover{border-color:var(--accent);transform:translateX(6px);}
+  .contact-link-icon{
+    width:36px;height:36px;background:rgba(0,212,255,0.1);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .contact-link-icon svg{width:16px;height:16px;fill:var(--accent);}
+  .contact-link-text{font-size:13px;}
+  .contact-link-label{
+    font-family:'Space Mono',monospace;font-size:9px;
+    letter-spacing:2px;color:var(--muted);text-transform:uppercase;
+    display:block;margin-bottom:2px;
+  }
+ 
+  /* FOOTER */
+  footer{
+    padding:32px 48px;
+    border-top:1px solid var(--border);
+    display:flex;justify-content:space-between;align-items:center;
+    position:relative;z-index:1;
+  }
+  footer p{
+    font-family:'Space Mono',monospace;font-size:10px;
+    letter-spacing:2px;color:var(--muted);
+  }
+ 
+  /* NOISE OVERLAY */
+  .noise{
+    position:fixed;inset:0;z-index:999;pointer-events:none;opacity:0.03;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+ 
+  /* SCANLINE EFFECT ON LOAD */
+  .scanline-wipe{
+    position:fixed;inset:0;z-index:2000;pointer-events:none;
+    background:linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0,212,255,0.06) 50%,
+      transparent 100%
+    );
+    background-size:100% 8px;
+    animation:wipeOut 1.5s ease 0.5s forwards;
+  }
+ 
+  /* GLITCH TEXT EFFECT */
+  .glitch{position:relative;}
+  .glitch::before,.glitch::after{
+    content:attr(data-text);
+    position:absolute;top:0;left:0;
+    background:linear-gradient(135deg,#fff 0%,var(--accent) 60%,var(--accent2) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  }
+  .glitch::before{
+    left:2px;
+    animation:glitch1 4s infinite;
+    clip-path:polygon(0 20%,100% 20%,100% 40%,0 40%);
+  }
+  .glitch::after{
+    left:-2px;
+    animation:glitch2 4s infinite;
+    clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%);
+  }
+ 
+  /* SECTION DIVIDER */
+  .divider{
+    height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);
+    opacity:0.3;margin:0;
+  }
+ 
+  /* REVEAL ANIMATION */
+  .reveal{
+    opacity:0;transform:translateY(40px);
+    transition:opacity 0.8s,transform 0.8s;
+  }
+  .reveal.visible{opacity:1;transform:translateY(0);}
+ 
+  /* ANIMATIONS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+  @keyframes scrollLine{0%,100%{opacity:0.3;transform:scaleY(0.5);}50%{opacity:1;transform:scaleY(1);}}
+  @keyframes scanlines{0%{background-position:0 0;}100%{background-position:0 100px;}}
+  @keyframes wipeOut{0%{opacity:1;}80%{opacity:1;}100%{opacity:0;}}
+  @keyframes glitch1{0%,90%,100%{transform:none;opacity:0;} 91%{transform:translateX(2px);opacity:0.7;} 93%{transform:translateX(-2px);opacity:0;} 96%{transform:none;opacity:0;}}
+  @keyframes glitch2{0%,85%,100%{transform:none;opacity:0;} 86%{transform:translateX(-3px);opacity:0.5;} 88%{transform:translateX(3px);opacity:0;}}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+  @keyframes orbit{from{transform:rotate(0deg) translateX(120px) rotate(0deg);}to{transform:rotate(360deg) translateX(120px) rotate(-360deg);}}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+ 
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    nav{padding:20px 24px;}
+    .nav-links{display:none;}
+    section{padding:80px 24px;}
+    #hero{padding:0 24px;}
+    .hero-stats{display:none;}
+    .about-grid,.contact-grid{grid-template-columns:1fr;gap:40px;}
+    .project-card.featured{grid-column:span 1;}
+    footer{flex-direction:column;gap:12px;text-align:center;}
+  }
+</style>
 </head>
-
 <body>
-
-<nav class="navbar">
-
-<div class="logo">Krishna Kulkarni</div>
-
-<ul class="nav-links">
-<li><a href="#about">About</a></li>
-<li><a href="#projects">Projects</a></li>
-<li><a href="#drones">Drones</a></li>
-<li><a href="#cfd">CFD</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
-
+ 
+<div class="noise"></div>
+<div class="scanline-wipe"></div>
+<div class="grid-bg"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+ 
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">KK</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
-
-<section class="hero">
-
-<h1>Aerospace Engineering Portfolio</h1>
-
-<p>
-UAV Systems • Aerodynamics • CFD • Structures
-</p>
-
-<a class="btn" href="#projects">View My Work</a>
-
+ 
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-tag">Aerospace Engineer — IISc Research Intern</div>
+    <h1 class="hero-name">
+      <span class="glitch" data-text="KRISHNA">KRISHNA</span>
+      <span class="glitch" data-text="KULKARNI">KULKARNI</span>
+    </h1>
+    <p class="hero-sub">
+      <strong>Designing the machines that redefine flight.</strong><br/>
+      CFD · VTOL UAVs · Structural Composites · Predictive Systems.<br/>
+      Turning aerodynamics and machine learning into operational hardware.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        View Projects
+      </a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+      <a href="Krishna_Kulkarni_resume_iisc_pratt.docx" download class="btn-outline">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Resume
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll to explore</div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">8.3</div>
+      <div class="hero-stat-label">CGPA — RIT</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4+</div>
+      <div class="hero-stat-label">Industry Internships</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4.16%</div>
+      <div class="hero-stat-label">Drag Reduction Achieved</div>
+    </div>
+  </div>
 </section>
-
-<section id="about" class="section">
-
-<h2 data-aos="fade-up">About</h2>
-
-<p data-aos="fade-up">
-
-Mechanical engineer interested in aerospace structures,
-UAV systems and aerodynamic simulations. My research includes
-CFD analysis of high speed trains and UAV system design.
-
-</p>
-
+ 
+<div class="divider"></div>
+ 
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 — About</div>
+  <h2 class="section-title reveal">Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I'm <strong>Krishna Kulkarni</strong>, a Mechanical Engineering graduate from Ramaiah Institute of Technology, Bengaluru, specialising in <strong>aerodynamics, CFD, and aerospace structures</strong>. Currently a Research Intern at the <strong>Indian Institute of Science (IISc)</strong>, working in the MAV lab on Micro Aerial Vehicles.
+      </p>
+      <p>
+        My work sits at the intersection of computational fluid dynamics, composite manufacturing, and autonomous flight systems. I build things that fly — from <strong>1.36m wingspan tailsitter VTOLs</strong> to border-surveillance UAVs — and simulate things that can't yet be built.
+      </p>
+      <p>
+        I've led structures teams, done composite layups, integrated Pixhawk flight controllers, and trained ML models to predict when aircraft engines are about to fail. I don't just design aerospace systems — I understand them from physics to firmware.
+      </p>
+    </div>
+    <div class="about-right reveal">
+      <div class="info-row">
+        <span class="label">Location</span>
+        <span class="val">Bengaluru, Karnataka, India</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Education</span>
+        <span class="val">B.E Mechanical — RIT (CGPA 8.3)</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Current Role</span>
+        <span class="val">Research Intern — IISc MAV Lab</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Specialization</span>
+        <span class="val">Aerodynamics · CFD · UAV Systems</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Email</span>
+        <span class="val">krishnakulkarnirs@gmail.com</span>
+      </div>
+      <div class="info-row">
+        <span class="label">D.O.B</span>
+        <span class="val">05 August 2004</span>
+      </div>
+    </div>
+  </div>
 </section>
-
-<section id="projects" class="section">
-
-<h2 data-aos="fade-up">Projects</h2>
-
-<div class="project-grid">
-
-<div class="project-card">
-
-<h3>High Speed Train Aerodynamics</h3>
-
-<p>Drag reduction using CFD and nose optimization.</p>
-
-<button onclick="toggleProject('proj1')">View Details</button>
-
-<div class="project-detail" id="proj1">
-
-<ul>
-
-<li>Software: ANSYS Fluent</li>
-
-<li>Model: k-ω SST</li>
-
-<li>Method: Kriging optimization</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
+ 
+<div class="divider"></div>
+ 
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">02 — Experience</div>
+  <h2 class="section-title reveal">Field Record</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">September 2025 — Present · IISc, Bengaluru</div>
+      <div class="timeline-role">Research Intern — MAV Lab</div>
+      <div class="timeline-company">Indian Institute of Science (IISc) · STEM Program</div>
+      <div class="timeline-desc">Working in the aerospace lab on Micro Aerial Vehicles under the STEM internship program. Learning Pixhawk and microcontroller integration on UAVs. Leading the structures team and performing <strong>composite layup</strong> for the VTOL build — translating CFD-optimised geometries into physical hardware.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">July — October 2025 · Bengaluru</div>
+      <div class="timeline-role">Engineering Intern</div>
+      <div class="timeline-company">Bosch Automotive Electronics India Pvt. Ltd.</div>
+      <div class="timeline-desc">Hands-on PCB fabrication processes and quality verification using Micro VU systems based on GD&T (Geometric Dimensioning & Tolerancing). Developed understanding of precision manufacturing standards in automotive electronics.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">September — October 2024 · Bengaluru</div>
+      <div class="timeline-role">Production Intern</div>
+      <div class="timeline-company">Kennametal Inc.</div>
+      <div class="timeline-desc">Worked within SAP ERP production units for carbide cutting tool manufacturing. Gained deep insight into CNC milling processes and assembly of carrier bodies for carbide tool tips — bridging software production planning with physical manufacturing execution.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">May — June 2023 · Remote</div>
+      <div class="timeline-role">Project Intern — CFD & Aerodynamics</div>
+      <div class="timeline-company">Dwello Aerospace</div>
+      <div class="timeline-desc">Studied aerodynamic behaviour of fighter and commercial aircraft at subsonic and supersonic speeds. Learned OpenVSP for geometry generation and ANSYS Fluent for simulation. This internship sparked my deep interest in computational aerodynamics.</div>
+    </div>
+  </div>
 </section>
-
-<section id="drones" class="section">
-
-<h2>Drone Systems</h2>
-
-<div class="project-grid">
-
-<div class="project-card">
-
-<h3>Seed Dropper UAV</h3>
-
-<button onclick="toggleProject('drone1')">View Details</button>
-
-<div class="project-detail" id="drone1">
-
-<ul>
-
-<li>Frame: F450</li>
-
-<li>Payload: seed mechanism</li>
-
-<li>Application: reforestation</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
+ 
+<div class="divider"></div>
+ 
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">03 — Projects</div>
+  <h2 class="section-title reveal">Mission Portfolio</h2>
+  <div class="projects-grid">
+ 
+    <!-- VTOL -->
+    <div class="project-card featured reveal">
+      <div class="project-video-area">
+        <!-- REPLACE src with your YouTube embed URL e.g. https://www.youtube.com/embed/YOUR_VIDEO_ID -->
+        <div class="video-placeholder" id="vtol-placeholder">
+          <div class="play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="video-label">▶ VTOL Flight Demo — Add Video URL</div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-tag">Flagship Build · UAV Hardware</div>
+        <h3 class="project-title">Tailsitter VTOL — Border Surveillance UAV</h3>
+        <p class="project-desc">
+          A <strong>1.36m wingspan tailsitter VTOL UAV</strong> engineered for seamless transition between hover and forward flight. Designed for high-endurance border surveillance missions requiring persistent ISR (Intelligence, Surveillance, and Reconnaissance) capability over extended ranges.<br/><br/>
+          The aircraft achieves stable hover using differential thrust, then pitches into fixed-wing forward flight for energy-efficient cruise — eliminating the need for separate lift rotors. Key engineering challenges included transition-phase stability control, composite structural weight optimisation, and Pixhawk-based autopilot integration. Leading the structures team at IISc for physical build and composite layup.
+        </p>
+        <div class="project-metrics">
+          <span class="metric">1.36m Wingspan</span>
+          <span class="metric">Tailsitter Config</span>
+          <span class="metric">Pixhawk FC</span>
+          <span class="metric">Composite Structure</span>
+          <span class="metric">Surveillance Payload</span>
+          <span class="metric">VTOL → Fixed Wing</span>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- DRONE FLYING -->
+    <div class="project-card reveal">
+      <div class="project-video-area">
+        <!-- REPLACE with your drone flying video embed -->
+        <div class="video-placeholder" id="drone-placeholder">
+          <div class="play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="video-label">▶ Drone Flying — Add Video URL</div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-tag">Flight Operations · UAV Piloting</div>
+        <h3 class="project-title">Drone Flight Operations & Testing</h3>
+        <p class="project-desc">
+          Hands-on flight testing and operations with multi-rotor UAV platforms. This section captures real-world flight data collection, system validation, and aerial manoeuvring skills developed through the IISc MAV lab program and independent practice.
+        </p>
+        <div class="project-metrics">
+          <span class="metric">Multi-Rotor</span>
+          <span class="metric">Flight Testing</span>
+          <span class="metric">MAVLink / Pixhawk</span>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- CFD PROJECT -->
+    <div class="project-card reveal">
+      <div class="project-body" style="padding-top:28px;">
+        <div class="project-tag">CFD · Surrogate Optimisation</div>
+        <h3 class="project-title">Aerodynamic Drag Reduction — High-Speed Trains</h3>
+        <p class="project-desc">
+          Conducted 2D & 3D CFD simulations of Maglev and Shinkansen nose geometries at 300 km/h. Applied <strong>Kriging surrogate modelling</strong> for parametric nose shape optimisation — achieved a <strong>4.16% drag reduction</strong> using the k-ω SST turbulence model in ANSYS Fluent.
+        </p>
+        <div class="project-metrics">
+          <span class="metric">4.16% Drag Reduction</span>
+          <span class="metric">ANSYS Fluent</span>
+          <span class="metric">Kriging Model</span>
+          <span class="metric">k-ω SST</span>
+          <span class="metric">300 km/h</span>
+        </div>
+        <a href="https://drive.google.com/file/d/1NMIzd5KDG7CHfANWot4DWz6_IojDXZmI/view" target="_blank" class="project-link">
+          View Report
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+ 
+    <!-- RUL ML -->
+    <div class="project-card reveal">
+      <div class="project-body" style="padding-top:28px;">
+        <div class="project-tag">Machine Learning · Predictive Maintenance</div>
+        <h3 class="project-title">RUL Prediction — Turbofan Engines (Pratt & Whitney CMAPSS)</h3>
+        <p class="project-desc">
+          Developed ML models to predict <strong>Remaining Useful Life (RUL)</strong> of turbofan engines using NASA's CMAPSS dataset. Pre-processed multi-sensor time-series across multiple fault modes. Implemented Random Forest, Gradient Boosting, and LSTM architectures for temporal degradation modelling.
+        </p>
+        <div class="project-metrics">
+          <span class="metric">LSTM</span>
+          <span class="metric">Random Forest</span>
+          <span class="metric">NASA CMAPSS</span>
+          <span class="metric">Predictive Maintenance</span>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Aircraft CFD -->
+    <div class="project-card reveal">
+      <div class="project-body" style="padding-top:28px;">
+        <div class="project-tag">Aerodynamics · Comparative Analysis</div>
+        <h3 class="project-title">Commercial & Fighter Aircraft Analysis — ANSYS Fluent</h3>
+        <p class="project-desc">
+          Designed aircraft geometries using <strong>OpenVSP</strong>. Simulated subsonic and supersonic flow conditions for both commercial and fighter aircraft configurations in ANSYS Fluent. Comparative aerodynamic efficiency analysis across drag polars and lift-to-drag ratios.
+        </p>
+        <div class="project-metrics">
+          <span class="metric">OpenVSP</span>
+          <span class="metric">Subsonic + Supersonic</span>
+          <span class="metric">ANSYS Fluent</span>
+          <span class="metric">Fighter & Commercial</span>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
 </section>
-
-<section id="cfd" class="section">
-
-<h2>CFD Research</h2>
-
-<div class="project-grid">
-
-<div class="project-card">
-
-<h3>Maglev Train Simulation</h3>
-
-<button onclick="toggleProject('cfd1')">View Details</button>
-
-<div class="project-detail" id="cfd1">
-
-<ul>
-
-<li>Velocity: 120 m/s</li>
-
-<li>Solver: ANSYS Fluent</li>
-
-<li>2D simulation</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
+ 
+<div class="divider"></div>
+ 
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">04 — Skills</div>
+  <h2 class="section-title reveal">Arsenal</h2>
+  <div class="skills-container">
+    <div class="skills-categories">
+ 
+      <div class="skill-cat">
+        <div class="skill-cat-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          CAD & Design
+        </div>
+        <div class="skill-item"><div class="skill-label"><span>CATIA V5</span><span>Advanced</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="88"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>SolidWorks</span><span>Advanced</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>Fusion 360</span><span>Proficient</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="78"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>Solid Edge</span><span>Proficient</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="72"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>OpenVSP</span><span>Proficient</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="75"></div></div></div>
+      </div>
+ 
+      <div class="skill-cat">
+        <div class="skill-cat-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          Simulation & CFD
+        </div>
+        <div class="skill-item"><div class="skill-label"><span>ANSYS Fluent</span><span>Advanced</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>ANSYS Mechanical</span><span>Advanced</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="84"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>SolidWorks Sim</span><span>Proficient</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>Kriging / Surrogate</span><span>Proficient</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70"></div></div></div>
+      </div>
+ 
+      <div class="skill-cat">
+        <div class="skill-cat-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Programming & ML
+        </div>
+        <div class="skill-item"><div class="skill-label"><span>Python</span><span>Proficient</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="78"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>Scikit-Learn / ML</span><span>Proficient</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="72"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>LSTM / Deep Learning</span><span>Learning</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="58"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>HTML / Web</span><span>Proficient</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="65"></div></div></div>
+      </div>
+ 
+      <div class="skill-cat">
+        <div class="skill-cat-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Aerospace & UAV
+        </div>
+        <div class="skill-item"><div class="skill-label"><span>Pixhawk / ArduPilot</span><span>Proficient</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="74"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>Composite Layup</span><span>Hands-on</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>VTOL Design</span><span>Advanced</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="82"></div></div></div>
+        <div class="skill-item"><div class="skill-label"><span>SAP ERP</span><span>Proficient</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="65"></div></div></div>
+      </div>
+ 
+    </div>
+  </div>
 </section>
-
-<section id="contact" class="section">
-
-<h2>Contact</h2>
-
-<p>Email: your_email@gmail.com</p>
-<p>GitHub: github.com/krishna17990</p>
-
+ 
+<div class="divider"></div>
+ 
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">05 — Contact</div>
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <div class="big-text">LET'S<br/><span>BUILD</span><br/>TOGETHER.</div>
+      <p>Open to research collaborations, aerospace internships, graduate programs, and anyone building serious flying machines. If you're working on something that pushes the edge of what's flyable — I want to be part of it.</p>
+      <div class="hero-ctas">
+        <a href="mailto:krishnakulkarnirs@gmail.com" class="btn-primary">Send Message</a>
+        <a href="Krishna_Kulkarni_resume_iisc_pratt.docx" download class="btn-outline">Download Resume</a>
+      </div>
+    </div>
+    <div class="contact-right reveal">
+      <div class="contact-links">
+        <a href="mailto:krishnakulkarnirs@gmail.com" class="contact-link">
+          <div class="contact-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none" stroke="var(--bg)" stroke-width="1.5"/></svg>
+          </div>
+          <div class="contact-link-text">
+            <span class="contact-link-label">Email</span>
+            krishnakulkarnirs@gmail.com
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/krishnakulkarni075a56320" target="_blank" class="contact-link">
+          <div class="contact-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <div class="contact-link-text">
+            <span class="contact-link-label">LinkedIn</span>
+            krishnakulkarni075a56320
+          </div>
+        </a>
+        <a href="https://krishna17990.github.io/Krishna_portfolio_/" target="_blank" class="contact-link">
+          <div class="contact-link-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" fill="none" stroke="var(--accent)" stroke-width="1.5"/></svg>
+          </div>
+          <div class="contact-link-text">
+            <span class="contact-link-label">Portfolio</span>
+            krishna17990.github.io
+          </div>
+        </a>
+        <a href="tel:+917892195540" class="contact-link">
+          <div class="contact-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.86 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012.77 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.83a16 16 0 006.26 6.26l1.19-1.19a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div class="contact-link-text">
+            <span class="contact-link-label">Phone</span>
+            +91 7892195540
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
-
+ 
 <footer>
-
-<p>© 2026 Krishna Kulkarni</p>
-
+  <p>© 2026 Krishna Kulkarni — Aerospace Engineer</p>
+  <p>Bengaluru, Karnataka, India</p>
 </footer>
-
-<script src="script.js"></script>
-
+ 
 <script>
-AOS.init();
+// ── CURSOR ──────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx+'px';cursor.style.top=my+'px';
+});
+function animRing(){
+  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}animRing();
+document.querySelectorAll('a,button,.project-card,.play-btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cursor.style.transform='translate(-50%,-50%) scale(2.5)';
+    cursor.style.background='var(--accent2)';
+    ring.style.width='60px';ring.style.height='60px';
+    ring.style.borderColor='rgba(255,77,28,0.5)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cursor.style.transform='translate(-50%,-50%) scale(1)';
+    cursor.style.background='var(--accent)';
+    ring.style.width='36px';ring.style.height='36px';
+    ring.style.borderColor='rgba(0,212,255,0.5)';
+  });
+});
+ 
+// ── NAV SCROLL ───────────────────────────────────────────
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>60);
+});
+ 
+// ── HERO CANVAS (particle field) ─────────────────────────
+const canvas=document.getElementById('hero-canvas');
+const ctx=canvas.getContext('2d');
+let W,H,particles=[];
+function resize(){
+  W=canvas.width=canvas.offsetWidth;
+  H=canvas.height=canvas.offsetHeight;
+}
+resize();window.addEventListener('resize',()=>{resize();initParticles();});
+ 
+class Particle{
+  constructor(){this.reset();}
+  reset(){
+    this.x=Math.random()*W;
+    this.y=Math.random()*H;
+    this.vx=(Math.random()-0.5)*0.4;
+    this.vy=(Math.random()-0.5)*0.4;
+    this.r=Math.random()*1.5+0.3;
+    this.a=Math.random()*0.5+0.1;
+    this.pulse=Math.random()*Math.PI*2;
+  }
+  update(){
+    this.x+=this.vx;this.y+=this.vy;
+    this.pulse+=0.02;
+    if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset();
+  }
+  draw(){
+    const alpha=this.a*(0.7+0.3*Math.sin(this.pulse));
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(0,212,255,${alpha})`;
+    ctx.fill();
+  }
+}
+ 
+function initParticles(){
+  particles=[];
+  const n=Math.floor(W*H/8000);
+  for(let i=0;i<n;i++)particles.push(new Particle());
+}
+initParticles();
+ 
+// Lines between nearby particles
+function drawConnections(){
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const dx=particles[i].x-particles[j].x;
+      const dy=particles[i].y-particles[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<100){
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x,particles[i].y);
+        ctx.lineTo(particles[j].x,particles[j].y);
+        ctx.strokeStyle=`rgba(0,212,255,${0.08*(1-d/100)})`;
+        ctx.lineWidth=0.5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+ 
+// Animated scan line
+let scanY=-200;
+function drawScan(){
+  const grad=ctx.createLinearGradient(0,scanY-60,0,scanY+60);
+  grad.addColorStop(0,'transparent');
+  grad.addColorStop(0.5,'rgba(0,212,255,0.04)');
+  grad.addColorStop(1,'transparent');
+  ctx.fillStyle=grad;
+  ctx.fillRect(0,scanY-60,W,120);
+  scanY+=1.2;
+  if(scanY>H+200)scanY=-200;
+}
+ 
+function animate(){
+  ctx.clearRect(0,0,W,H);
+  drawConnections();
+  particles.forEach(p=>{p.update();p.draw();});
+  drawScan();
+  requestAnimationFrame(animate);
+}animate();
+ 
+// ── SCROLL REVEAL ────────────────────────────────────────
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+    }
+  });
+},{threshold:0.1});
+ 
+document.querySelectorAll('.reveal,.timeline-item,.project-card,.skill-cat').forEach(el=>{
+  observer.observe(el);
+});
+ 
+// ── SKILL BARS ───────────────────────────────────────────
+const barObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.skill-bar-fill').forEach(bar=>{
+        setTimeout(()=>{
+          bar.style.width=bar.dataset.width+'%';
+        },200);
+      });
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('.skill-cat').forEach(c=>barObserver.observe(c));
+ 
+// ── STAGGERED TIMELINE ───────────────────────────────────
+const tlObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const items=document.querySelectorAll('.timeline-item');
+      items.forEach((item,i)=>{
+        setTimeout(()=>item.classList.add('visible'),i*150);
+      });
+    }
+  });
+},{threshold:0.1});
+const timeline=document.querySelector('.timeline');
+if(timeline)tlObserver.observe(timeline);
+ 
+// ── STAGGERED PROJECT CARDS ──────────────────────────────
+const gridObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const cards=document.querySelectorAll('.project-card');
+      cards.forEach((card,i)=>{
+        setTimeout(()=>card.classList.add('visible'),i*120);
+      });
+    }
+  });
+},{threshold:0.05});
+const projGrid=document.querySelector('.projects-grid');
+if(projGrid)gridObserver.observe(projGrid);
+ 
+// ── 3D CARD TILT ─────────────────────────────────────────
+document.querySelectorAll('.project-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const rect=card.getBoundingClientRect();
+    const x=(e.clientX-rect.left)/rect.width-0.5;
+    const y=(e.clientY-rect.top)/rect.height-0.5;
+    card.style.transform=`translateY(-4px) rotateX(${-y*8}deg) rotateY(${x*8}deg)`;
+    card.style.transition='transform 0.1s';
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='';
+    card.style.transition='transform 0.6s ease';
+  });
+});
+ 
+// ── VIDEO PLACEHOLDER CLICK → PROMPT FOR URL ─────────────
+// For demo: clicking the placeholder opens a prompt to enter YouTube embed URL
+// In production, just replace the placeholder div with: <iframe src="YOUR_EMBED_URL" allowfullscreen></iframe>
+document.querySelectorAll('.video-placeholder').forEach(ph=>{
+  ph.addEventListener('click',()=>{
+    const url=prompt('Enter YouTube embed URL (e.g. https://www.youtube.com/embed/YOUR_ID):\n\nOr paste a direct video link:');
+    if(url && url.trim()){
+      const parent=ph.parentElement;
+      const iframe=document.createElement('iframe');
+      iframe.src=url.trim();
+      iframe.allow='autoplay;fullscreen';
+      iframe.allowFullscreen=true;
+      iframe.style.cssText='width:100%;height:100%;border:none;position:absolute;inset:0;';
+      parent.style.position='relative';
+      parent.innerHTML='';
+      parent.appendChild(iframe);
+    }
+  });
+  ph.style.cursor='none';
+});
+ 
+// ── COUNTER ANIMATION ────────────────────────────────────
+function animateCounter(el,target,suffix=''){
+  let current=0;
+  const step=target/60;
+  const timer=setInterval(()=>{
+    current+=step;
+    if(current>=target){current=target;clearInterval(timer);}
+    el.textContent=(Number.isInteger(target)?Math.floor(current):current.toFixed(2))+suffix;
+  },16);
+}
+const heroObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('.hero-stat-num').forEach(el=>{
+        const txt=el.textContent;
+        if(txt.includes('8.3'))animateCounter(el,8.3,'');
+        else if(txt.includes('4+'))setTimeout(()=>{el.textContent='4+';},400);
+        else if(txt.includes('4.16'))animateCounter(el,4.16,'%');
+      });
+    }
+  });
+},{threshold:0.5});
+const heroStats=document.querySelector('.hero-stats');
+if(heroStats)heroObserver.observe(heroStats);
+ 
+// ── MAGNETIC BUTTONS ─────────────────────────────────────
+document.querySelectorAll('.btn-primary,.btn-outline').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const rect=btn.getBoundingClientRect();
+    const x=(e.clientX-rect.left-rect.width/2)*0.25;
+    const y=(e.clientY-rect.top-rect.height/2)*0.25;
+    btn.style.transform=`translate(${x}px,${y}px) translateY(-2px)`;
+  });
+  btn.addEventListener('mouseleave',()=>{
+    btn.style.transform='';
+  });
+});
+ 
+// ── NAV ACTIVE STATE ─────────────────────────────────────
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+const sectionObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(a=>{
+        a.style.color=a.getAttribute('href')==='#'+e.target.id?'var(--accent)':'';
+      });
+    }
+  });
+},{rootMargin:'-40% 0px -40% 0px'});
+sections.forEach(s=>sectionObserver.observe(s));
 </script>
-
 </body>
 </html>
